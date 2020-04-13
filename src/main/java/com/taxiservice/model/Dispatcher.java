@@ -1,16 +1,39 @@
 package com.taxiservice.model;
 
+import javax.persistence.*;
+
+@Entity
 public class Dispatcher {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column(name = "username", nullable = false)
     private String username;
+
+    @Column(name = "password", nullable = false)
     private String password;
+
+    @Column(name = "name", nullable = false)
     private String name;
+
+    @Column(name = "surname", nullable = false)
     private String surname;
+
+    @Column(name = "jmbg")
     private String jmbg;
+
+    @Column(name = "address")
     private String address;
+
+    @Column(name = "phoneNumber", nullable = false)
     private String phoneNumber;
+
+    @Column(name = "salary", nullable = false)
     private double salary;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private TaxiService taxiService;
 
     public Dispatcher() {

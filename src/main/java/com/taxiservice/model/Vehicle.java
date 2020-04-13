@@ -1,13 +1,30 @@
 package com.taxiservice.model;
 
+import javax.persistence.*;
+
+@Entity
 public class Vehicle {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column(name = "model", nullable = false)
     private String model;
+
+    @Column(name = "manufacturer", nullable = false)
     private String manufacturer;
+
+    @Column(name = "firstRegistration")
     private String firstRegistration;
+
+    @Column(name = "registrationNumber", nullable = false)
     private String registrationNumber;
+
+    @Column(name = "vehicleNumber", nullable = false)
     private String vehicleNumber;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private TaxiService taxiService;
 
     public Vehicle() {

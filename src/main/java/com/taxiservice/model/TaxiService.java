@@ -1,17 +1,36 @@
 package com.taxiservice.model;
 
+import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
+@Entity
 public class TaxiService {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column(name = "pib", nullable = false)
     private String pib;
+
+    @Column(name = "name", nullable = false)
     private String name;
+
+    @Column(name = "address", nullable = false)
     private String address;
-    private List<Vehicle> vehicles;
-    private List<Driver> drivers;
-    private List<Customer> customers;
-    private List<Dispatcher> dispatchers;
+
+    @OneToMany(mappedBy = "taxiService", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Vehicle> vehicles;
+
+    @OneToMany(mappedBy = "taxiService", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Driver> drivers;
+
+    @OneToMany(mappedBy = "taxiService", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Customer> customers;
+
+    @OneToMany(mappedBy = "taxiService", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Dispatcher> dispatchers;
 
     public TaxiService() {
     }
@@ -55,35 +74,35 @@ public class TaxiService {
         this.address = address;
     }
 
-    public List<Vehicle> getVehicles() {
+    public Set<Vehicle> getVehicles() {
         return vehicles;
     }
 
-    public void setVehicles(List<Vehicle> vehicles) {
+    public void setVehicles(Set<Vehicle> vehicles) {
         this.vehicles = vehicles;
     }
 
-    public List<Driver> getDrivers() {
+    public Set<Driver> getDrivers() {
         return drivers;
     }
 
-    public void setDrivers(List<Driver> drivers) {
+    public void setDrivers(Set<Driver> drivers) {
         this.drivers = drivers;
     }
 
-    public List<Customer> getCustomers() {
+    public Set<Customer> getCustomers() {
         return customers;
     }
 
-    public void setCustomers(List<Customer> customers) {
+    public void setCustomers(Set<Customer> customers) {
         this.customers = customers;
     }
 
-    public List<Dispatcher> getDispatchers() {
+    public Set<Dispatcher> getDispatchers() {
         return dispatchers;
     }
 
-    public void setDispatchers(List<Dispatcher> dispatchers) {
+    public void setDispatchers(Set<Dispatcher> dispatchers) {
         this.dispatchers = dispatchers;
     }
 }

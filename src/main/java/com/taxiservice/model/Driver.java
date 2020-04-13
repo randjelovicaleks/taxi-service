@@ -1,18 +1,46 @@
 package com.taxiservice.model;
 
+import javax.persistence.*;
+
+@Entity
 public class Driver {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column(name = "username", nullable = false)
     private String username;
+
+    @Column(name = "password", nullable = false)
     private String password;
+
+    @Column(name = "name", nullable = false)
     private String name;
+
+    @Column(name = "surname", nullable = false)
     private String surname;
+
+    @Column(name = "jmbg")
     private String jmbg;
+
+    @Column(name = "address", nullable = false)
     private String address;
+
+    @Column(name = "phoneNumber", nullable = false)
     private String phoneNumber;
+
+    @Column(name = "salary", nullable = false)
     private double salary;
+
+    @Column(name = "taxiCardNumber", nullable = false) //broj članske karte udruženja taksista
     private String taxiCardNumber;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "vehicle_id", referencedColumnName = "id")
     private Vehicle vehicle;
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private TaxiService taxiService;
 
     public Driver() {

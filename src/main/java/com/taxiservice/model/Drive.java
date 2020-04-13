@@ -1,13 +1,27 @@
 package com.taxiservice.model;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
 public class Drive {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column(name = "orderDate", nullable = false)
     private Date orderDate;
+
+    @Column(name = "startingAddress", nullable = false)
     private String startingAddress;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "driver_id", referencedColumnName = "id")
     private Driver driver;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private Customer customer;
 
     public Drive() {
