@@ -2,13 +2,12 @@ package com.taxiservice.model;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 public class TaxiService {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "pib", nullable = false)
@@ -20,26 +19,30 @@ public class TaxiService {
     @Column(name = "address", nullable = false)
     private String address;
 
-    @OneToMany(mappedBy = "taxiService", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Vehicle> vehicles;
+    @Column(name = "phoneNumber", nullable = false)
+    private String phoneNumber;
 
     @OneToMany(mappedBy = "taxiService", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Driver> drivers;
+    private List<Vehicle> vehicles;
 
     @OneToMany(mappedBy = "taxiService", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Customer> customers;
+    private List<Driver> drivers;
 
     @OneToMany(mappedBy = "taxiService", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Dispatcher> dispatchers;
+    private List<Customer> customers;
+
+    @OneToMany(mappedBy = "taxiService", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Dispatcher> dispatchers;
 
     public TaxiService() {
     }
 
-    public TaxiService(Long id, String pib, String name, String address) {
+    public TaxiService(Long id, String pib, String name, String address, String phoneNumber) {
         this.id = id;
         this.pib = pib;
         this.name = name;
         this.address = address;
+        this.phoneNumber = phoneNumber;
     }
 
     public Long getId() {
@@ -74,35 +77,43 @@ public class TaxiService {
         this.address = address;
     }
 
-    public Set<Vehicle> getVehicles() {
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public List<Vehicle> getVehicles() {
         return vehicles;
     }
 
-    public void setVehicles(Set<Vehicle> vehicles) {
+    public void setVehicles(List<Vehicle> vehicles) {
         this.vehicles = vehicles;
     }
 
-    public Set<Driver> getDrivers() {
+    public List<Driver> getDrivers() {
         return drivers;
     }
 
-    public void setDrivers(Set<Driver> drivers) {
+    public void setDrivers(List<Driver> drivers) {
         this.drivers = drivers;
     }
 
-    public Set<Customer> getCustomers() {
+    public List<Customer> getCustomers() {
         return customers;
     }
 
-    public void setCustomers(Set<Customer> customers) {
+    public void setCustomers(List<Customer> customers) {
         this.customers = customers;
     }
 
-    public Set<Dispatcher> getDispatchers() {
+    public List<Dispatcher> getDispatchers() {
         return dispatchers;
     }
 
-    public void setDispatchers(Set<Dispatcher> dispatchers) {
+    public void setDispatchers(List<Dispatcher> dispatchers) {
         this.dispatchers = dispatchers;
     }
 }

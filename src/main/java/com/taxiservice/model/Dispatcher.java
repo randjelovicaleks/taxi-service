@@ -4,9 +4,9 @@ import javax.persistence.*;
 
 @Entity
 public class Dispatcher {
-
+    //admin
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "username", nullable = false)

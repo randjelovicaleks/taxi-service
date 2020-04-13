@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class Customer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "username", nullable = false)
@@ -21,9 +21,6 @@ public class Customer {
     @Column(name = "surname", nullable = false)
     private String surname;
 
-    @Column(name = "jmbg")
-    private String jmbg;
-
     @Column(name = "address")
     private String address;
 
@@ -36,14 +33,13 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(Long id, String username, String password, String name, String surname, String jmbg, String address,
+    public Customer(Long id, String username, String password, String name, String surname, String address,
                     String phoneNumber) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.name = name;
         this.surname = surname;
-        this.jmbg = jmbg;
         this.address = address;
         this.phoneNumber = phoneNumber;
     }
@@ -86,14 +82,6 @@ public class Customer {
 
     public void setSurname(String surname) {
         this.surname = surname;
-    }
-
-    public String getJmbg() {
-        return jmbg;
-    }
-
-    public void setJmbg(String jmbg) {
-        this.jmbg = jmbg;
     }
 
     public String getAddress() {

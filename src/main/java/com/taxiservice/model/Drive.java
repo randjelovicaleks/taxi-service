@@ -7,7 +7,7 @@ import java.util.Date;
 public class Drive {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "orderDate", nullable = false)
@@ -24,13 +24,25 @@ public class Drive {
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private Customer customer;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "dispatcher_id", referencedColumnName = "id")
+    private Dispatcher dispatcher;
+
+    @Column(name = "note")
+    private String note;
+
     public Drive() {
     }
 
-    public Drive(Long id, Date orderDate, String startingAddress) {
+    public Drive(Long id, Date orderDate, String startingAddress, Driver driver, Customer customer,
+                 Dispatcher dispatcher, String note) {
         this.id = id;
         this.orderDate = orderDate;
         this.startingAddress = startingAddress;
+        this.driver = driver;
+        this.customer = customer;
+        this.dispatcher = dispatcher;
+        this.note = note;
     }
 
     public Long getId() {
@@ -71,5 +83,21 @@ public class Drive {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public Dispatcher getDispatcher() {
+        return dispatcher;
+    }
+
+    public void setDispatcher(Dispatcher dispatcher) {
+        this.dispatcher = dispatcher;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }
