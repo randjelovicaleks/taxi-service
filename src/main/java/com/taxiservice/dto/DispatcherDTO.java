@@ -9,7 +9,6 @@ public class DispatcherDTO {
     private String password;
     private String name;
     private String surname;
-    private String jmbg;
     private String address;
     private String phoneNumber;
     private double salary;
@@ -18,14 +17,12 @@ public class DispatcherDTO {
     public DispatcherDTO() {
     }
 
-    public DispatcherDTO(Long id, String username, String password, String name, String surname, String jmbg,
-                         String address, String phoneNumber, double salary) {
+    public DispatcherDTO(Long id, String username, String password, String name, String surname, String address, String phoneNumber, double salary) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.name = name;
         this.surname = surname;
-        this.jmbg = jmbg;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.salary = salary;
@@ -38,7 +35,6 @@ public class DispatcherDTO {
         this.password = dispatcher.getPassword();
         this.name = dispatcher.getName();
         this.surname = dispatcher.getSurname();
-        this.jmbg = dispatcher.getJmbg();
         this.address = dispatcher.getAddress();
         this.phoneNumber = dispatcher.getPhoneNumber();
         this.salary = dispatcher.getSalary();
@@ -82,14 +78,6 @@ public class DispatcherDTO {
 
     public void setSurname(String surname) {
         this.surname = surname;
-    }
-
-    public String getJmbg() {
-        return jmbg;
-    }
-
-    public void setJmbg(String jmbg) {
-        this.jmbg = jmbg;
     }
 
     public String getAddress() {

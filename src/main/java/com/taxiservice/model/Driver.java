@@ -1,5 +1,7 @@
 package com.taxiservice.model;
 
+import com.taxiservice.dto.DriverDTO;
+
 import javax.persistence.*;
 
 @Entity
@@ -20,9 +22,6 @@ public class Driver {
 
     @Column(name = "surname", nullable = false)
     private String surname;
-
-    @Column(name = "jmbg")
-    private String jmbg;
 
     @Column(name = "address", nullable = false)
     private String address;
@@ -46,18 +45,29 @@ public class Driver {
     public Driver() {
     }
 
-    public Driver(Long id, String username, String password, String name, String surname, String jmbg, String address,
+    public Driver(Long id, String username, String password, String name, String surname, String address,
                   String phoneNumber, double salary, String taxiCardNumber) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.name = name;
         this.surname = surname;
-        this.jmbg = jmbg;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.salary = salary;
         this.taxiCardNumber = taxiCardNumber;
+    }
+
+    public Driver(DriverDTO driverDTO) {
+        this.id = driverDTO.getId();
+        this.username = driverDTO.getUsername();
+        this.password = driverDTO.getPassword();
+        this.name = driverDTO.getName();
+        this.surname = driverDTO.getSurname();
+        this.address = driverDTO.getAddress();
+        this.phoneNumber = driverDTO.getPhoneNumber();
+        this.salary = driverDTO.getSalary();
+        this.taxiCardNumber = driverDTO.getTaxiCardNumber();
     }
 
     public Long getId() {
@@ -98,14 +108,6 @@ public class Driver {
 
     public void setSurname(String surname) {
         this.surname = surname;
-    }
-
-    public String getJmbg() {
-        return jmbg;
-    }
-
-    public void setJmbg(String jmbg) {
-        this.jmbg = jmbg;
     }
 
     public String getAddress() {

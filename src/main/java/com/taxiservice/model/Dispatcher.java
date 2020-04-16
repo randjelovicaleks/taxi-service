@@ -21,9 +21,6 @@ public class Dispatcher {
     @Column(name = "surname", nullable = false)
     private String surname;
 
-    @Column(name = "jmbg")
-    private String jmbg;
-
     @Column(name = "address")
     private String address;
 
@@ -39,14 +36,12 @@ public class Dispatcher {
     public Dispatcher() {
     }
 
-    public Dispatcher(Long id, String username, String password, String name, String surname, String jmbg,
-                      String address, String phoneNumber, double salary) {
+    public Dispatcher(Long id, String username, String password, String name, String surname, String address, String phoneNumber, double salary) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.name = name;
         this.surname = surname;
-        this.jmbg = jmbg;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.salary = salary;
@@ -90,14 +85,6 @@ public class Dispatcher {
 
     public void setSurname(String surname) {
         this.surname = surname;
-    }
-
-    public String getJmbg() {
-        return jmbg;
-    }
-
-    public void setJmbg(String jmbg) {
-        this.jmbg = jmbg;
     }
 
     public String getAddress() {

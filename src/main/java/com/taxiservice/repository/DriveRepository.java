@@ -7,4 +7,5 @@ import java.util.List;
 public interface DriveRepository extends JpaRepository<Drive, Long> {
 
     List<Drive> findByDriverId(Long id);
+    List<Drive> findByCustomerId(Long id);
 }

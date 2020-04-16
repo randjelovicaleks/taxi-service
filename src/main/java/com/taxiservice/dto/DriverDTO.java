@@ -9,7 +9,6 @@ public class DriverDTO {
     private String password;
     private String name;
     private String surname;
-    private String jmbg;
     private String address;
     private String phoneNumber;
     private double salary;
@@ -18,14 +17,13 @@ public class DriverDTO {
     public DriverDTO() {
     }
 
-    public DriverDTO(Long id, String username, String password, String name, String surname, String jmbg,
+    public DriverDTO(Long id, String username, String password, String name, String surname,
                      String address, String phoneNumber, double salary, String taxiCardNumber) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.name = name;
         this.surname = surname;
-        this.jmbg = jmbg;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.salary = salary;
@@ -38,7 +36,6 @@ public class DriverDTO {
         this.password = driver.getPassword();
         this.name = driver.getName();
         this.surname = driver.getSurname();
-        this.jmbg = driver.getJmbg();
         this.address = driver.getAddress();
         this.phoneNumber = driver.getAddress();
         this.salary = driver.getSalary();
@@ -83,14 +80,6 @@ public class DriverDTO {
 
     public void setSurname(String surname) {
         this.surname = surname;
-    }
-
-    public String getJmbg() {
-        return jmbg;
-    }
-
-    public void setJmbg(String jmbg) {
-        this.jmbg = jmbg;
     }
 
     public String getAddress() {

@@ -1,7 +1,10 @@
 package com.taxiservice.controller;
 
 import com.taxiservice.dto.CustomerDTO;
+import com.taxiservice.dto.DriveDTO;
 import com.taxiservice.model.Customer;
+import com.taxiservice.model.Drive;
+import com.taxiservice.service.DriveService;
 import com.taxiservice.service.impl.CustomerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -53,5 +56,26 @@ public class CustomerController {
     public ResponseEntity<?> deleteCustomer(@PathVariable Long id) {
         customerService.removeCustomer(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/create/{idCustomer}")
+    public ResponseEntity<DriveDTO> addDriveByApp(@PathVariable Long idCustomer, @RequestBody DriveDTO driveDTO) {
+        Drive drive = customerService.addDriveByApp(idCustomer, driveDTO);
+
+        if (drive != null) {
+            return new ResponseEntity<>(new DriveDTO(drive), HttpStatus.CREATED);
+        }
+
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @PutMapping(value = "/update/drive/{id}", produces = "application/json", consumes = "application/json")
+    public ResponseEntity<DriveDTO> updateDriveByCustomer(@PathVariable Long idCustomer, @RequestBody DriveDTO driveDTO) {
+        Drive drive = customerService.updateDriveByCustomer(idCustomer, driveDTO);
+
+        if (drive != null) {
+            return new ResponseEntity<>(new DriveDTO(drive), HttpStatus.ACCEPTED);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }

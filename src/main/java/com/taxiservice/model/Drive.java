@@ -22,7 +22,7 @@ public class Drive {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
-    private Customer customer;
+    private Customer customer; //za voznje koje se kreiraju putem aplikacije
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "dispatcher_id", referencedColumnName = "id")
@@ -31,11 +31,14 @@ public class Drive {
     @Column(name = "note")
     private String note;
 
+    @Column(name = "customerName")
+    private String customerName; //za voznje koje se kreiraju putem telefonskog poziva
+
     public Drive() {
     }
 
     public Drive(Long id, Date orderDate, String startingAddress, Driver driver, Customer customer,
-                 Dispatcher dispatcher, String note) {
+                 Dispatcher dispatcher, String note, String customerName) {
         this.id = id;
         this.orderDate = orderDate;
         this.startingAddress = startingAddress;
@@ -43,6 +46,7 @@ public class Drive {
         this.customer = customer;
         this.dispatcher = dispatcher;
         this.note = note;
+        this.customerName = customerName;
     }
 
     public Long getId() {
@@ -99,5 +103,13 @@ public class Drive {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 }

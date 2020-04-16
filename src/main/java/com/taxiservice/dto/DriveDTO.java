@@ -1,5 +1,6 @@
 package com.taxiservice.dto;
 import com.taxiservice.model.Drive;
+import com.taxiservice.model.Driver;
 
 import java.util.Date;
 
@@ -12,12 +13,13 @@ public class DriveDTO {
     private CustomerDTO customerDTO;
     private DispatcherDTO dispatcherDTO;
     private String note;
+    private String customerName;
 
     public DriveDTO() {
     }
 
     public DriveDTO(Long id, Date orderDate, String startingAddress, DriverDTO driverDTO, CustomerDTO customerDTO,
-                    DispatcherDTO dispatcherDTO, String note) {
+                    DispatcherDTO dispatcherDTO, String note, String customerName) {
         this.id = id;
         this.orderDate = orderDate;
         this.startingAddress = startingAddress;
@@ -25,6 +27,7 @@ public class DriveDTO {
         this.customerDTO = customerDTO;
         this.dispatcherDTO = dispatcherDTO;
         this.note = note;
+        this.customerName = customerName;
     }
 
     public DriveDTO(Drive drive) {
@@ -35,6 +38,7 @@ public class DriveDTO {
         this.customerDTO = new CustomerDTO(drive.getCustomer());
         this.dispatcherDTO = new DispatcherDTO(drive.getDispatcher());
         this.note = drive.getNote();
+        this.customerName = drive.getCustomerName();
     }
 
     public Long getId() {
@@ -91,5 +95,13 @@ public class DriveDTO {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 }
