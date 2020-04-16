@@ -1,6 +1,7 @@
 package com.taxiservice.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -43,6 +44,9 @@ public class TaxiService {
         this.name = name;
         this.address = address;
         this.phoneNumber = phoneNumber;
+        this.vehicles = new ArrayList<>();
+        this.drivers = new ArrayList<>();
+        this.dispatchers = new ArrayList<>();
     }
 
     public Long getId() {

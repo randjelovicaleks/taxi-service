@@ -1,5 +1,8 @@
 package com.taxiservice.model;
 
+import com.taxiservice.dto.TaxiServiceDTO;
+import com.taxiservice.dto.VehicleDTO;
+
 import javax.persistence.*;
 
 @Entity
@@ -27,17 +30,31 @@ public class Vehicle {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private TaxiService taxiService;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "driver_id", referencedColumnName = "id")
+    private Driver driver;
+
     public Vehicle() {
     }
 
     public Vehicle(Long id, String model, String manufacturer, String firstRegistration, String registrationNumber,
-                   String vehicleNumber) {
+                   String vehicleNumber, TaxiService taxiService) {
         this.id = id;
         this.model = model;
         this.manufacturer = manufacturer;
         this.firstRegistration = firstRegistration;
         this.registrationNumber = registrationNumber;
         this.vehicleNumber = vehicleNumber;
+        this.taxiService = taxiService;
+    }
+
+    public Vehicle(VehicleDTO vehicleDTO) {
+        this.id = vehicleDTO.getId();
+        this.model = vehicleDTO.getModel();
+        this.manufacturer = vehicleDTO.getManufacturer();
+        this.firstRegistration = vehicleDTO.getFirstRegistration();
+        this.registrationNumber = vehicleDTO.getRegistrationNumber();
+        this.vehicleNumber = vehicleDTO.getVehicleNumber();
     }
 
     public Long getId() {
@@ -94,5 +111,13 @@ public class Vehicle {
 
     public void setTaxiService(TaxiService taxiService) {
         this.taxiService = taxiService;
+    }
+
+    public Driver getDriver() {
+        return driver;
+    }
+
+    public void setDriver(Driver driver) {
+        this.driver = driver;
     }
 }

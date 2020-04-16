@@ -113,4 +113,5 @@ public class DriverDTO {
     public void setTaxiCardNumber(String taxiCardNumber) {
         this.taxiCardNumber = taxiCardNumber;
     }
+
 }

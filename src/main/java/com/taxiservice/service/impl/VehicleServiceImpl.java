@@ -7,6 +7,7 @@ import com.taxiservice.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -44,5 +45,18 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public void removeVehicle(Long id) {
         vehicleRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Vehicle> getAllVehicleWithoutDriver() {
+        List<Vehicle> vehicles = vehicleRepository.findAll();
+        List<Vehicle> vehiclesWithoutDriver = new ArrayList<>();
+
+        for (Vehicle v : vehicles) {
+            if (v.getDriver() == null) {
+                vehiclesWithoutDriver.add(v);
+            }
+        }
+        return vehiclesWithoutDriver;
     }
 }

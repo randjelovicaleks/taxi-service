@@ -1,8 +1,9 @@
 package com.taxiservice.model;
 
 import com.taxiservice.dto.DriverDTO;
-
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Driver {
@@ -11,7 +12,7 @@ public class Driver {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "username", nullable = false)
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
 
     @Column(name = "password", nullable = false)
@@ -35,18 +36,17 @@ public class Driver {
     @Column(name = "taxiCardNumber", nullable = false) //broj članske karte udruženja taksista
     private String taxiCardNumber;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "vehicle_id", referencedColumnName = "id")
-    private Vehicle vehicle;
-
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private TaxiService taxiService;
+
+    @OneToMany(mappedBy = "driver", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Drive> drives;
 
     public Driver() {
     }
 
     public Driver(Long id, String username, String password, String name, String surname, String address,
-                  String phoneNumber, double salary, String taxiCardNumber) {
+                  String phoneNumber, double salary, String taxiCardNumber, TaxiService taxiService) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -56,6 +56,8 @@ public class Driver {
         this.phoneNumber = phoneNumber;
         this.salary = salary;
         this.taxiCardNumber = taxiCardNumber;
+        this.taxiService = taxiService;
+        this.drives = new ArrayList<>();
     }
 
     public Driver(DriverDTO driverDTO) {
@@ -142,19 +144,19 @@ public class Driver {
         this.taxiCardNumber = taxiCardNumber;
     }
 
-    public Vehicle getVehicle() {
-        return vehicle;
-    }
-
-    public void setVehicle(Vehicle vehicle) {
-        this.vehicle = vehicle;
-    }
-
     public TaxiService getTaxiService() {
         return taxiService;
     }
 
     public void setTaxiService(TaxiService taxiService) {
         this.taxiService = taxiService;
+    }
+
+    public List<Drive> getDrives() {
+        return drives;
+    }
+
+    public void setDrives(List<Drive> drives) {
+        this.drives = drives;
     }
 }

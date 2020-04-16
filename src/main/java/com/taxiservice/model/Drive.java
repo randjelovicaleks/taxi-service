@@ -16,16 +16,13 @@ public class Drive {
     @Column(name = "startingAddress", nullable = false)
     private String startingAddress;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "driver_id", referencedColumnName = "id")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Driver driver;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "customer_id", referencedColumnName = "id")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Customer customer; //za voznje koje se kreiraju putem aplikacije
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "dispatcher_id", referencedColumnName = "id")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Dispatcher dispatcher;
 
     @Column(name = "note")

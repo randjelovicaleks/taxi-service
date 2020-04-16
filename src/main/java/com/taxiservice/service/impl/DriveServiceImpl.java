@@ -28,12 +28,12 @@ public class DriveServiceImpl implements DriveService {
     @Override
     public List<Drive> getAllDrivesForDriver(Long idDriver) {
         return driveRepository.findByDriverId(idDriver);
-    }
+    } //mozda ne treba
 
     @Override
     public List<Drive> getAllDrivesForCustomer(Long idCustomer) {
         return driveRepository.findByCustomerId(idCustomer);
-    }
+    } //mozda ne treba
 
     @Override
     public List<Drive> getAllDrivesByApp() {
@@ -46,5 +46,31 @@ public class DriveServiceImpl implements DriveService {
             }
         }
         return  drivesByApp;
+    }
+
+    @Override
+    public List<Drive> getAllDrivesByPhone() {
+        List<Drive> drives =  driveRepository.findAll();
+        List<Drive> drivesByPhone = new ArrayList<>();
+
+        for (Drive d : drives) {
+            if (d.getCustomer() == null) {
+                drivesByPhone.add(d);
+            }
+        }
+        return drivesByPhone;
+    }
+
+    @Override
+    public List<Drive> getAllDrivesByAppWithDriver() {
+        List<Drive> drives =  driveRepository.findAll();
+        List<Drive> drivesWithDriver = new ArrayList<>();
+
+        for (Drive d : drives) {
+            if (d.getCustomer() != null && d.getDriver() != null) {
+                drivesWithDriver.add(d);
+            }
+        }
+        return drivesWithDriver;
     }
 }

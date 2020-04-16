@@ -59,9 +59,39 @@ public class DriveController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @GetMapping(value = "/all/driver")
+    @GetMapping(value = "/all/without/driver")
     public ResponseEntity<List<DriveDTO>> getAllDrivesByApp() {
         List<Drive> drives = driveService.getAllDrivesByApp();
+        List<DriveDTO> driveDTOS = new ArrayList<>();
+
+        for (Drive d : drives) {
+            driveDTOS.add(new DriveDTO(d));
+        }
+
+        if (driveDTOS != null) {
+            return new ResponseEntity<>(driveDTOS, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping(value = "/all/phone")
+    public ResponseEntity<List<DriveDTO>> getAllDrivesByPhone() {
+        List<Drive> drives = driveService.getAllDrivesByPhone();
+        List<DriveDTO> driveDTOS = new ArrayList<>();
+
+        for (Drive d : drives) {
+            driveDTOS.add(new DriveDTO(d));
+        }
+
+        if (driveDTOS != null) {
+            return new ResponseEntity<>(driveDTOS, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @GetMapping(value = "/all/with/driver")
+    public ResponseEntity<List<DriveDTO>> getAllDrivesByAppWithDriver() {
+        List<Drive> drives = driveService.getAllDrivesByAppWithDriver();
         List<DriveDTO> driveDTOS = new ArrayList<>();
 
         for (Drive d : drives) {

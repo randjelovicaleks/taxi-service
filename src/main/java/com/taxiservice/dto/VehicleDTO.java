@@ -1,5 +1,6 @@
 package com.taxiservice.dto;
 
+import com.taxiservice.model.TaxiService;
 import com.taxiservice.model.Vehicle;
 
 public class VehicleDTO {
@@ -10,6 +11,7 @@ public class VehicleDTO {
     private String firstRegistration;
     private String registrationNumber;
     private String vehicleNumber;
+    private TaxiServiceDTO taxiServiceDTO;
 
     public VehicleDTO() {
     }
@@ -22,6 +24,7 @@ public class VehicleDTO {
         this.firstRegistration = firstRegistration;
         this.registrationNumber = registrationNumber;
         this.vehicleNumber = vehicleNumber;
+
     }
 
     public VehicleDTO(Vehicle vehicle) {
@@ -31,6 +34,7 @@ public class VehicleDTO {
         this.firstRegistration = vehicle.getFirstRegistration();
         this.registrationNumber = vehicle.getRegistrationNumber();
         this.vehicleNumber = vehicle.getVehicleNumber();
+        this.taxiServiceDTO = new TaxiServiceDTO(vehicle.getTaxiService());
     }
 
     public Long getId() {

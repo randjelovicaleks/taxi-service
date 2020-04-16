@@ -2,8 +2,10 @@ package com.taxiservice.controller;
 
 import com.taxiservice.dto.DispatcherDTO;
 import com.taxiservice.dto.DriveDTO;
+import com.taxiservice.dto.DriverDTO;
 import com.taxiservice.model.Dispatcher;
 import com.taxiservice.model.Drive;
+import com.taxiservice.model.Driver;
 import com.taxiservice.service.impl.DispatcherServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,6 +42,16 @@ public class DispatcherController {
 
         if (drive != null) {
             return new ResponseEntity<>(new DriveDTO(drive), HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @PostMapping(value = "/create/driver/{idVehicle}", produces = "application/json", consumes = "application/json")
+    public ResponseEntity<DriverDTO> addNewDriver(@RequestBody DriverDTO driverDTO, @PathVariable Long idVehicle) {
+        Driver driver = dispatcherService.addNewDriver(driverDTO, idVehicle);
+
+        if (driver != null) {
+            return new ResponseEntity<>(new DriverDTO(driver), HttpStatus.CREATED);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }

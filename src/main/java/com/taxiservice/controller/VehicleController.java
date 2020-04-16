@@ -62,4 +62,15 @@ public class VehicleController {
         vehicleService.removeVehicle(id);
         return  new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping(value = "/without/driver")
+    public ResponseEntity<List<VehicleDTO>> getAllVehicleWithoutDriver() {
+        List<Vehicle> vehicles = vehicleService.getAllVehicleWithoutDriver();
+        List<VehicleDTO> vehicleDTOS = new ArrayList<>();
+
+        for (Vehicle v : vehicles) {
+            vehicleDTOS.add(new VehicleDTO(v));
+        }
+        return  new ResponseEntity<>(HttpStatus.OK);
+    }
 }

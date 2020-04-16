@@ -11,4 +11,6 @@ public interface DriveService {
     List<Drive> getAllDrivesForDriver(Long idDriver);
     List<Drive> getAllDrivesForCustomer(Long idCustomer);
     List<Drive> getAllDrivesByApp();
+    List<Drive> getAllDrivesByPhone();
+    List<Drive> getAllDrivesByAppWithDriver();
 }

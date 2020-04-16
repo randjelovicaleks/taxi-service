@@ -1,6 +1,8 @@
 package com.taxiservice.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Dispatcher {
@@ -9,7 +11,7 @@ public class Dispatcher {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "username", nullable = false)
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
 
     @Column(name = "password", nullable = false)
@@ -33,6 +35,9 @@ public class Dispatcher {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private TaxiService taxiService;
 
+    @OneToMany(mappedBy = "dispatcher", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Drive> drives;
+
     public Dispatcher() {
     }
 
@@ -45,6 +50,7 @@ public class Dispatcher {
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.salary = salary;
+        this.drives = new ArrayList<>();
     }
 
     public Long getId() {
