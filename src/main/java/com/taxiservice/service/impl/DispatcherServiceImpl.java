@@ -11,6 +11,8 @@ import com.taxiservice.repository.DispatcherRepository;
 import com.taxiservice.repository.DriveRepository;
 import com.taxiservice.repository.DriverRepository;
 import com.taxiservice.repository.VehicleRepository;
+import com.taxiservice.security.authority.Authority;
+import com.taxiservice.security.authority.AuthorityService;
 import com.taxiservice.service.DispatcherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +34,9 @@ public class DispatcherServiceImpl implements DispatcherService {
     @Autowired
     private VehicleRepository vehicleRepository;
 
+    @Autowired
+    private AuthorityService authService;
+
     @Override
     public Dispatcher getDispatcher(Long id) {
        return dispatcherRepository.getOne(id);
@@ -49,6 +54,8 @@ public class DispatcherServiceImpl implements DispatcherService {
             dispatcher.setSalary(dispatcherDTO.getSalary());
         }
 
+        List<Authority> auth = authService.findByRole("ROLE_DISPATCHER");
+        dispatcher.setAuthorities(auth);
         dispatcherRepository.save(dispatcher);
         return dispatcher;
     }

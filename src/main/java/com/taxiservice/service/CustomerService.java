@@ -15,4 +15,5 @@ public interface CustomerService {
     void removeCustomer(Long id);
     Drive addDriveByApp(Long idCustomer, DriveDTO driveDTO);
     Drive updateDriveByCustomer(Long idCustomer, DriveDTO driveDTO);
+    Customer save(Customer customer);
 }

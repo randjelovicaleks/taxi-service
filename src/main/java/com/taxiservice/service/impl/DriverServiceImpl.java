@@ -5,6 +5,8 @@ import com.taxiservice.model.Drive;
 import com.taxiservice.model.Driver;
 import com.taxiservice.repository.DriveRepository;
 import com.taxiservice.repository.DriverRepository;
+import com.taxiservice.security.authority.Authority;
+import com.taxiservice.security.authority.AuthorityService;
 import com.taxiservice.service.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,9 @@ public class DriverServiceImpl implements DriverService {
 
     @Autowired
     private DriveRepository driveRepository;
+
+    @Autowired
+    private AuthorityService authService;
 
     @Override
     public Driver getDriver(Long id) {
@@ -40,7 +45,8 @@ public class DriverServiceImpl implements DriverService {
             driver.setAddress(driverDTO.getAddress());
             driver.setPhoneNumber(driverDTO.getPhoneNumber());
         }
-
+        List<Authority> auth = authService.findByRole("ROLE_DRIVER");
+        driver.setAuthorities(auth);
         driverRepository.save(driver);
         return driver;
     }

@@ -6,8 +6,12 @@ import com.taxiservice.model.Customer;
 import com.taxiservice.model.Drive;
 import com.taxiservice.repository.CustomerRepository;
 import com.taxiservice.repository.DriveRepository;
+import com.taxiservice.security.authority.Authority;
+import com.taxiservice.security.authority.AuthorityService;
 import com.taxiservice.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +25,13 @@ public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private DriveRepository driveRepository;
 
+    @Lazy
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private AuthorityService authService;
+
     @Override
     public Customer getCustomer(Long id) {
         return customerRepository.getOne(id);
@@ -29,6 +40,14 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public List<Customer> getAllCustomers() {
         return customerRepository.findAll();
+    }
+
+    @Override
+    public Customer save(Customer customer) {
+        customer.setPassword(passwordEncoder.encode(customer.getPassword()));
+        List<Authority> auth = authService.findByRole("ROLE_CUSTOMER");
+        customer.setAuthorities(auth);
+        return customerRepository.save(customer);
     }
 
     @Override
@@ -41,6 +60,8 @@ public class CustomerServiceImpl implements CustomerService {
             customer.setAddress(customerDTO.getAddress());
             customer.setPhoneNumber(customerDTO.getPhoneNumber());
         }
+        List<Authority> auth = authService.findByRole("ROLE_CUSTOMER");
+        customer.setAuthorities(auth);
         customerRepository.save(customer);
         return customer;
     }
@@ -78,4 +99,5 @@ public class CustomerServiceImpl implements CustomerService {
         driveRepository.save(drive);
         return drive;
     }
+
 }

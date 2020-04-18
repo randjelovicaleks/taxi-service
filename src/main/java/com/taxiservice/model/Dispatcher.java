@@ -1,11 +1,17 @@
 package com.taxiservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.taxiservice.security.authority.Authority;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
-public class Dispatcher {
+public class Dispatcher implements UserDetails {
     //admin
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,6 +44,12 @@ public class Dispatcher {
     @OneToMany(mappedBy = "dispatcher", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Drive> drives;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "dispatcher_authority",
+            joinColumns = @JoinColumn(name = "dispatcher_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id"))
+    private List<Authority> authorities;
+
     public Dispatcher() {
     }
 
@@ -63,6 +75,30 @@ public class Dispatcher {
 
     public String getUsername() {
         return username;
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @JsonIgnore
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     public void setUsername(String username) {
@@ -123,5 +159,29 @@ public class Dispatcher {
 
     public void setTaxiService(TaxiService taxiService) {
         this.taxiService = taxiService;
+    }
+
+    public List<Drive> getDrives() {
+        return drives;
+    }
+
+    public void setDrives(List<Drive> drives) {
+        this.drives = drives;
+    }
+
+    public void setAuthorities(List<Authority> authorities) {
+        this.authorities = authorities;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.authorities;
+    }
+
+    public Authority getAuthority() {
+        if(this.authorities.size() > 0)
+            return this.authorities.get(0);
+        else
+            return null;
     }
 }
