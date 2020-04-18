@@ -4,8 +4,10 @@ import com.taxiservice.dto.CustomerDTO;
 import com.taxiservice.dto.DriveDTO;
 import com.taxiservice.model.Customer;
 import com.taxiservice.model.Drive;
+import com.taxiservice.model.TaxiService;
 import com.taxiservice.repository.CustomerRepository;
 import com.taxiservice.repository.DriveRepository;
+import com.taxiservice.repository.TaxiServiceRepository;
 import com.taxiservice.security.authority.Authority;
 import com.taxiservice.security.authority.AuthorityService;
 import com.taxiservice.service.CustomerService;
@@ -25,6 +27,9 @@ public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private DriveRepository driveRepository;
 
+    @Autowired
+    private TaxiServiceRepository taxiServiceRepository;
+
     @Lazy
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -43,10 +48,17 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public Customer findByUsername(String username) {
+        return customerRepository.findByUsername(username);
+    }
+
+    @Override
     public Customer save(Customer customer) {
         customer.setPassword(passwordEncoder.encode(customer.getPassword()));
         List<Authority> auth = authService.findByRole("ROLE_CUSTOMER");
         customer.setAuthorities(auth);
+        TaxiService taxiService = taxiServiceRepository.getOne(Long.valueOf(1));
+        customer.setTaxiService(taxiService);
         return customerRepository.save(customer);
     }
 

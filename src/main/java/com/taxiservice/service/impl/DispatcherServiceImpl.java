@@ -99,7 +99,6 @@ public class DispatcherServiceImpl implements DispatcherService {
 
     //izmena voznji
     //dodavanje vozila
-    //login za sve i registracija za musterije
     //+FRONTEND
 
 

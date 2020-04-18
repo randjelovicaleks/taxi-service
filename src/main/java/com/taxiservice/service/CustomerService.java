@@ -16,4 +16,5 @@ public interface CustomerService {
     Drive addDriveByApp(Long idCustomer, DriveDTO driveDTO);
     Drive updateDriveByCustomer(Long idCustomer, DriveDTO driveDTO);
     Customer save(Customer customer);
+    Customer findByUsername(String username);
 }

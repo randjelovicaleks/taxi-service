@@ -1,6 +1,7 @@
 package com.taxiservice.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.taxiservice.dto.CustomerDTO;
 import com.taxiservice.security.authority.Authority;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -63,6 +64,16 @@ public class Customer implements UserDetails {
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.drives = new ArrayList<>();
+    }
+
+    public Customer(CustomerDTO customerDTO) {
+        this.id = customerDTO.getId();
+        this.username = customerDTO.getUsername();
+        this.password = customerDTO.getPassword();
+        this.name = customerDTO.getName();
+        this.surname = customerDTO.getSurname();
+        this.address = customerDTO.getAddress();
+        this.phoneNumber = customerDTO.getPhoneNumber();
     }
 
     public Long getId() {
