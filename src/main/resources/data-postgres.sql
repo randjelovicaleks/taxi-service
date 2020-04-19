@@ -2,7 +2,7 @@ INSERT INTO taxi_service (pib, name, address, phone_number)
 VALUES ('4564684846', 'Crveni Taxi', 'Dunavska 2', '021 565 888');
 
 INSERT INTO dispatcher (username, password, name, surname, address, phone_number, salary, taxi_service_id)
-VALUES ('dispatcher', '$2a$10$Pz7TgJ5cVfWT2khPn7uEs.hEjE4CFtb9p5FhbYl4StNx9goZi.0w6', 'Jovan', 'Jovanovic', 'Skerliceva 2', '063525987', 25000, 1);
+VALUES ('admin', '$2a$10$Pz7TgJ5cVfWT2khPn7uEs.hEjE4CFtb9p5FhbYl4StNx9goZi.0w6', 'Jovan', 'Jovanovic', 'Skerliceva 2', '063525987', 25000, 1);
 
 INSERT INTO customer (username, password, name, surname, address, phone_number, taxi_service_id)
 VALUES ('customer', '$2a$10$Pz7TgJ5cVfWT2khPn7uEs.hEjE4CFtb9p5FhbYl4StNx9goZi.0w6', 'Aleksandra', 'Randjelovic', 'Ostroska 39', '0632547896', 1);

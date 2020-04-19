@@ -15,6 +15,8 @@ import com.taxiservice.security.authority.Authority;
 import com.taxiservice.security.authority.AuthorityService;
 import com.taxiservice.service.DispatcherService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,6 +38,10 @@ public class DispatcherServiceImpl implements DispatcherService {
 
     @Autowired
     private AuthorityService authService;
+
+    @Lazy
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public Dispatcher getDispatcher(Long id) {
@@ -84,7 +90,7 @@ public class DispatcherServiceImpl implements DispatcherService {
 
         Driver driver = new Driver();
         driver.setUsername(driverDTO.getUsername());
-        driver.setPassword(driverDTO.getPassword());
+       // driver.setPassword(driverDTO.getPassword());
         driver.setName(driverDTO.getName());
         driver.setSurname(driverDTO.getSurname());
         driver.setAddress(driverDTO.getAddress());
@@ -93,13 +99,16 @@ public class DispatcherServiceImpl implements DispatcherService {
         driver.setSalary(driverDTO.getSalary());
         driver.setTaxiCardNumber(driverDTO.getTaxiCardNumber());
         vehicle.setDriver(driver);
+
+        //postavljanje passworda za drivera direktno
+        driver.setPassword(passwordEncoder.encode("driver"));
+        List<Authority> auth = authService.findByRole("ROLE_DRIVER");
+        driver.setAuthorities(auth);
         driverRepository.save(driver);
         return driver;
     }
 
     //izmena voznji
     //dodavanje vozila
-    //+FRONTEND
-
 
 }

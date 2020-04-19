@@ -12,4 +12,5 @@ public interface VehicleService {
     Vehicle updateVehicle(VehicleDTO vehicleDTO);
     void removeVehicle(Long id);
     List<Vehicle> getAllVehicleWithoutDriver();
+    Vehicle addNewVehicle(VehicleDTO vehicleDTO);
 }

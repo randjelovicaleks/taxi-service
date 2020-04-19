@@ -27,7 +27,7 @@ public class Vehicle {
     @Column(name = "vehicleNumber", nullable = false)
     private String vehicleNumber;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.EAGER)
     private TaxiService taxiService;
 
     @OneToOne(cascade = CascadeType.ALL)

@@ -37,7 +37,7 @@ public class DriverDTO {
         this.name = driver.getName();
         this.surname = driver.getSurname();
         this.address = driver.getAddress();
-        this.phoneNumber = driver.getAddress();
+        this.phoneNumber = driver.getPhoneNumber();
         this.salary = driver.getSalary();
         this.taxiCardNumber = driver.getTaxiCardNumber();
     }

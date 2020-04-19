@@ -11,7 +11,7 @@ public class VehicleDTO {
     private String firstRegistration;
     private String registrationNumber;
     private String vehicleNumber;
-    private TaxiServiceDTO taxiServiceDTO;
+    private DriverDTO driverDTO;
 
     public VehicleDTO() {
     }
@@ -34,7 +34,9 @@ public class VehicleDTO {
         this.firstRegistration = vehicle.getFirstRegistration();
         this.registrationNumber = vehicle.getRegistrationNumber();
         this.vehicleNumber = vehicle.getVehicleNumber();
-        this.taxiServiceDTO = new TaxiServiceDTO(vehicle.getTaxiService());
+        if (vehicle.getDriver() != null) {
+            this.driverDTO = new DriverDTO(vehicle.getDriver());
+        }
     }
 
     public Long getId() {
@@ -83,5 +85,13 @@ public class VehicleDTO {
 
     public void setVehicleNumber(String vehicleNumber) {
         this.vehicleNumber = vehicleNumber;
+    }
+
+    public DriverDTO getDriverDTO() {
+        return driverDTO;
+    }
+
+    public void setDriverDTO(DriverDTO driverDTO) {
+        this.driverDTO = driverDTO;
     }
 }

@@ -6,6 +6,7 @@ import com.taxiservice.service.impl.DriveServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -59,6 +60,7 @@ public class DriveController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+    @PreAuthorize("hasRole('ROLE_DRIVER')")
     @GetMapping(value = "/all/without/driver")
     public ResponseEntity<List<DriveDTO>> getAllDrivesByApp() {
         List<Drive> drives = driveService.getAllDrivesByApp();
@@ -74,6 +76,7 @@ public class DriveController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+    @PreAuthorize("hasRole('ROLE_DISPATCHER')")
     @GetMapping(value = "/all/phone")
     public ResponseEntity<List<DriveDTO>> getAllDrivesByPhone() {
         List<Drive> drives = driveService.getAllDrivesByPhone();
@@ -89,6 +92,7 @@ public class DriveController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+    @PreAuthorize("hasRole('ROLE_DISPATCHER')")
     @GetMapping(value = "/all/with/driver")
     public ResponseEntity<List<DriveDTO>> getAllDrivesByAppWithDriver() {
         List<Drive> drives = driveService.getAllDrivesByAppWithDriver();

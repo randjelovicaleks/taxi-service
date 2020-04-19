@@ -2,6 +2,8 @@ package com.taxiservice.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.taxiservice.security.authority.Authority;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -44,6 +46,7 @@ public class Dispatcher implements UserDetails {
     @OneToMany(mappedBy = "dispatcher", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Drive> drives;
 
+    @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "dispatcher_authority",
             joinColumns = @JoinColumn(name = "dispatcher_id", referencedColumnName = "id"),

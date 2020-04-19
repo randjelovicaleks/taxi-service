@@ -1,7 +1,9 @@
 package com.taxiservice.service.impl;
 
 import com.taxiservice.dto.VehicleDTO;
+import com.taxiservice.model.TaxiService;
 import com.taxiservice.model.Vehicle;
+import com.taxiservice.repository.TaxiServiceRepository;
 import com.taxiservice.repository.VehicleRepository;
 import com.taxiservice.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,9 @@ public class VehicleServiceImpl implements VehicleService {
     @Autowired
     private VehicleRepository vehicleRepository;
 
+    @Autowired
+    private TaxiServiceRepository taxiServiceRepository;
+
     @Override
     public Vehicle getVehicle(Long id) {
         return vehicleRepository.getOne(id);
@@ -24,6 +29,24 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public List<Vehicle> getAllVehicles() {
         return vehicleRepository.findAll();
+    }
+
+    @Override
+    public Vehicle addNewVehicle(VehicleDTO vehicleDTO) {
+        Vehicle vehicle = new Vehicle(vehicleDTO);
+
+        if (vehicle != null) {
+            vehicle.setId(vehicleDTO.getId());
+            vehicle.setModel(vehicleDTO.getModel());
+            vehicle.setManufacturer(vehicleDTO.getManufacturer());
+            vehicle.setFirstRegistration(vehicleDTO.getFirstRegistration());
+            vehicle.setRegistrationNumber(vehicleDTO.getRegistrationNumber());
+            vehicle.setVehicleNumber(vehicleDTO.getVehicleNumber());
+            TaxiService taxiService = taxiServiceRepository.getOne(Long.valueOf(1));
+            vehicle.setTaxiService(taxiService);
+        }
+        vehicleRepository.save(vehicle);
+        return vehicle;
     }
 
     @Override
@@ -59,4 +82,5 @@ public class VehicleServiceImpl implements VehicleService {
         }
         return vehiclesWithoutDriver;
     }
+
 }

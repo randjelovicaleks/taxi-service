@@ -10,6 +10,7 @@ import com.taxiservice.service.impl.DispatcherServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,14 +19,16 @@ import org.springframework.web.bind.annotation.*;
 public class DispatcherController {
 
     @Autowired
-    DispatcherServiceImpl dispatcherService;
+    private DispatcherServiceImpl dispatcherService;
 
+    @PreAuthorize("hasRole('ROLE_DISPATCHER')")
     @GetMapping(value = "/{id}")
     public ResponseEntity<DispatcherDTO> getDispatcher(@PathVariable Long id) {
         Dispatcher dispatcher = dispatcherService.getDispatcher(id);
         return new ResponseEntity<>(new DispatcherDTO(dispatcher),HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_DISPATCHER')")
     @PutMapping(value = "/update", produces = "application/json", consumes = "application/json")
     public ResponseEntity<DispatcherDTO> updateDispatcher(@RequestBody DispatcherDTO dispatcherDTO) {
         Dispatcher dispatcher = dispatcherService.updateDispatcher(dispatcherDTO);
@@ -36,6 +39,7 @@ public class DispatcherController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+    @PreAuthorize("hasRole('ROLE_DISPATCHER')")
     @PostMapping(value = "/create/{idDispatcher}", produces = "application/json", consumes = "application/json")
     public ResponseEntity<DriveDTO> addDriveByPhone(@PathVariable Long idDispatcher, @RequestBody DriveDTO driveDTO) {
         Drive drive = dispatcherService.addDriveByPhone(idDispatcher, driveDTO);
@@ -46,6 +50,7 @@ public class DispatcherController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+    @PreAuthorize("hasRole('ROLE_DISPATCHER')")
     @PostMapping(value = "/create/driver/{idVehicle}", produces = "application/json", consumes = "application/json")
     public ResponseEntity<DriverDTO> addNewDriver(@RequestBody DriverDTO driverDTO, @PathVariable Long idVehicle) {
         Driver driver = dispatcherService.addNewDriver(driverDTO, idVehicle);

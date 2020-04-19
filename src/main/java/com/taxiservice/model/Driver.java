@@ -3,6 +3,8 @@ package com.taxiservice.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.taxiservice.dto.DriverDTO;
 import com.taxiservice.security.authority.Authority;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -42,12 +44,13 @@ public class Driver implements UserDetails {
     @Column(name = "taxiCardNumber", nullable = false) //broj članske karte udruženja taksista
     private String taxiCardNumber;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.EAGER)
     private TaxiService taxiService;
 
     @OneToMany(mappedBy = "driver", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Drive> drives;
 
+    @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "driver_authority",
             joinColumns = @JoinColumn(name = "driver_id", referencedColumnName = "id"),

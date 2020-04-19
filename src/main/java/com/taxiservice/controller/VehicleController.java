@@ -6,6 +6,7 @@ import com.taxiservice.service.impl.VehicleServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class VehicleController {
     @Autowired
     private VehicleServiceImpl vehicleService;
 
+    @PreAuthorize("hasRole('ROLE_DISPATCHER')")
     @GetMapping(value = "/{id}")
     public ResponseEntity<VehicleDTO> getVehicle(@PathVariable Long id) {
         Vehicle vehicle = vehicleService.getVehicle(id);
@@ -30,6 +32,7 @@ public class VehicleController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+    @PreAuthorize("hasRole('ROLE_DISPATCHER')")
     @GetMapping
     public ResponseEntity<List<VehicleDTO>> getAllVehicles() {
         List<Vehicle> vehicles = vehicleService.getAllVehicles();
@@ -46,6 +49,19 @@ public class VehicleController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+    @PreAuthorize("hasRole('ROLE_DISPATCHER')")
+    @PostMapping(value = "/create", produces = "application/json", consumes = "application/json")
+    public ResponseEntity<VehicleDTO> addNewVehicle(@RequestBody VehicleDTO vehicleDTO) {
+        Vehicle vehicle = vehicleService.addNewVehicle(vehicleDTO);
+
+        if (vehicle != null) {
+            return new ResponseEntity<>(new VehicleDTO(vehicle), HttpStatus.CREATED);
+        }
+
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @PreAuthorize("hasRole('ROLE_DISPATCHER')")
     @PutMapping(value = "/update", produces = "application/json", consumes = "application/json")
     public ResponseEntity<VehicleDTO> updateVehicle(@RequestBody VehicleDTO vehicleDTO) {
         Vehicle vehicle = vehicleService.updateVehicle(vehicleDTO);
@@ -57,12 +73,14 @@ public class VehicleController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+    @PreAuthorize("hasRole('ROLE_DISPATCHER')")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<?> deleteVehicle(@PathVariable Long id) {
         vehicleService.removeVehicle(id);
         return  new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_DISPATCHER')")
     @GetMapping(value = "/without/driver")
     public ResponseEntity<List<VehicleDTO>> getAllVehicleWithoutDriver() {
         List<Vehicle> vehicles = vehicleService.getAllVehicleWithoutDriver();
@@ -71,6 +89,6 @@ public class VehicleController {
         for (Vehicle v : vehicles) {
             vehicleDTOS.add(new VehicleDTO(v));
         }
-        return  new ResponseEntity<>(HttpStatus.OK);
+        return  new ResponseEntity<>(vehicleDTOS,HttpStatus.OK);
     }
 }

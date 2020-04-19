@@ -38,7 +38,7 @@ public class Customer implements UserDetails {
     @Column(name = "phoneNumber", nullable = false)
     private String phoneNumber;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.EAGER)
     private TaxiService taxiService;
 
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
