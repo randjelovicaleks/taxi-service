@@ -103,9 +103,9 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = customerRepository.getOne(idCustomer);
         Drive drive = driveRepository.getOne(driveDTO.getId());
 
-        if (customer != null && drive != null) {
+        if (customer != null && drive != null && drive.getDriver() == null) {
             drive.setStartingAddress(driveDTO.getStartingAddress());
-            //drive.setOrderDate(driveDTO.getOrderDate());
+            drive.setOrderDate(driveDTO.getOrderDate());
             drive.setNote(driveDTO.getNote());
         }
         driveRepository.save(drive);

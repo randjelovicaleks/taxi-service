@@ -56,5 +56,41 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
     }
 
-    //funkcija za izmenu lozinke
+    public void changePassword(String oldPassword, String newPassword) {
+
+        Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
+        String username = currentUser.getName();
+
+        if (authenticationManager != null) {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, oldPassword));
+
+        } else {
+            return;
+        }
+
+        Object object = loadUserByUsername(username);
+
+        if (object instanceof Customer) {
+            Customer customer = (Customer) object;
+            // pre nego sto u bazu upisemo novu lozinku, potrebno ju je hesirati
+            // ne zelimo da u bazi cuvamo lozinke u plain text formatu
+            customer.setPassword(passwordEncoder.encode(newPassword));
+            customerRepository.save(customer);
+        } else if (object instanceof Driver) {
+            Driver driver = (Driver) object;
+            driver.setPassword(passwordEncoder.encode(newPassword));
+            driverRepository.save(driver);
+        } else if (object instanceof Dispatcher) {
+            Dispatcher dispatcher = (Dispatcher) object;
+            dispatcher.setPassword(passwordEncoder.encode(newPassword));
+            dispatcherRepository.save(dispatcher);
+        } else {
+            System.out.println("User with username " + username + " can not change password.");
+        }
+
+
+
+
+
+    }
 }

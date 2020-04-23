@@ -27,13 +27,29 @@ public class DriveServiceImpl implements DriveService {
 
     @Override
     public List<Drive> getAllDrivesForDriver(Long idDriver) {
-        return driveRepository.findByDriverId(idDriver);
-    } //mozda ne treba
+        List<Drive> drives = driveRepository.findByDriverId(idDriver);
+        List<Drive> driveForDriver = new ArrayList<>();
+
+        for (Drive d : drives) {
+            if (d.getCustomer() != null || d.getDriver() != null || d.getDispatcher() != null) {
+                driveForDriver.add(d);
+            }
+        }
+        return driveForDriver;
+    }
 
     @Override
     public List<Drive> getAllDrivesForCustomer(Long idCustomer) {
-        return driveRepository.findByCustomerId(idCustomer);
-    } //mozda ne treba
+        List<Drive> driveForCustomer = driveRepository.findByCustomerId(idCustomer);
+        List<Drive> driveForCustomerWithoutDriver = new ArrayList<>();
+
+        for (Drive d : driveForCustomer) {
+            if (d.getDriver() == null) {
+                driveForCustomerWithoutDriver.add(d);
+            }
+        }
+        return driveForCustomerWithoutDriver;
+    }
 
     @Override
     public List<Drive> getAllDrivesByApp() {
@@ -41,7 +57,7 @@ public class DriveServiceImpl implements DriveService {
         List<Drive> drivesByApp = new ArrayList<>();
 
         for (Drive d : drives) {
-            if (d.getCustomer() != null) {
+            if (d.getCustomer() != null && d.getDriver() != null) {
                 drivesByApp.add(d);
             }
         }
@@ -54,7 +70,7 @@ public class DriveServiceImpl implements DriveService {
         List<Drive> drivesByPhone = new ArrayList<>();
 
         for (Drive d : drives) {
-            if (d.getCustomer() == null) {
+            if (d.getCustomer() == null && d.getDriver() != null && d.getDispatcher() != null) {
                 drivesByPhone.add(d);
             }
         }
@@ -72,5 +88,18 @@ public class DriveServiceImpl implements DriveService {
             }
         }
         return drivesWithDriver;
+    }
+
+    @Override
+    public List<Drive> getAllDrivesByAppWithoutDriver() {
+        List<Drive> drives = driveRepository.findAll();
+        List<Drive> drivesWithoutDriver = new ArrayList<>();
+
+        for (Drive d : drives) {
+            if (d.getCustomer() != null && d.getDriver() == null) {
+                drivesWithoutDriver.add(d);
+            }
+        }
+        return  drivesWithoutDriver;
     }
 }

@@ -1,10 +1,11 @@
 package com.taxiservice.controller;
 
+import com.taxiservice.dto.ChangePasswordDTO;
 import com.taxiservice.dto.CustomerDTO;
 import com.taxiservice.dto.DriveDTO;
 import com.taxiservice.model.Customer;
 import com.taxiservice.model.Drive;
-import com.taxiservice.service.DriveService;
+import com.taxiservice.security.authority.CustomUserDetailsService;
 import com.taxiservice.service.impl.CustomerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -31,7 +31,7 @@ public class DriveController {
     }
 
     @GetMapping(value = "/driver/{idDriver}")
-    public ResponseEntity<List<DriveDTO>> getDriveForDriver(@PathVariable Long idDriver) {
+    public ResponseEntity<List<DriveDTO>> getDrivesForDriver(@PathVariable Long idDriver) {
         List<Drive> drives = driveService.getAllDrivesForDriver(idDriver);
         List<DriveDTO> driveDTOS = new ArrayList<>();
 
@@ -45,8 +45,9 @@ public class DriveController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
     @GetMapping(value = "/customer/{idCustomer}")
-    public ResponseEntity<List<DriveDTO>> getDriveForCustomer(@PathVariable Long idCustomer) {
+    public ResponseEntity<List<DriveDTO>> getDrivesForCustomer(@PathVariable Long idCustomer) {
         List<Drive> drives = driveService.getAllDrivesForCustomer(idCustomer);
         List<DriveDTO> driveDTOS = new ArrayList<>();
 
@@ -60,8 +61,8 @@ public class DriveController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @PreAuthorize("hasRole('ROLE_DRIVER')")
-    @GetMapping(value = "/all/without/driver")
+    @PreAuthorize("hasRole('ROLE_DISPATCHER')")
+    @GetMapping(value = "/all/app")
     public ResponseEntity<List<DriveDTO>> getAllDrivesByApp() {
         List<Drive> drives = driveService.getAllDrivesByApp();
         List<DriveDTO> driveDTOS = new ArrayList<>();
@@ -96,6 +97,22 @@ public class DriveController {
     @GetMapping(value = "/all/with/driver")
     public ResponseEntity<List<DriveDTO>> getAllDrivesByAppWithDriver() {
         List<Drive> drives = driveService.getAllDrivesByAppWithDriver();
+        List<DriveDTO> driveDTOS = new ArrayList<>();
+
+        for (Drive d : drives) {
+            driveDTOS.add(new DriveDTO(d));
+        }
+
+        if (driveDTOS != null) {
+            return new ResponseEntity<>(driveDTOS, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @PreAuthorize("hasRole('ROLE_DRIVER')")
+    @GetMapping(value = "/all/without/driver")
+    public ResponseEntity<List<DriveDTO>> getAllDrivesByAppWithoutDriver() {
+        List<Drive> drives = driveService.getAllDrivesByAppWithoutDriver();
         List<DriveDTO> driveDTOS = new ArrayList<>();
 
         for (Drive d : drives) {

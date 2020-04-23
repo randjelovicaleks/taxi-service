@@ -34,9 +34,15 @@ public class DriveDTO {
         this.id = drive.getId();
         this.orderDate = drive.getOrderDate();
         this.startingAddress = drive.getStartingAddress();
-        this.driverDTO = new DriverDTO(drive.getDriver());
-        this.customerDTO = new CustomerDTO(drive.getCustomer());
-        this.dispatcherDTO = new DispatcherDTO(drive.getDispatcher());
+        if (drive.getDriver() != null) {
+            this.driverDTO = new DriverDTO(drive.getDriver());
+        }
+        if (drive.getCustomer() != null) {
+            this.customerDTO = new CustomerDTO(drive.getCustomer());
+        }
+        if (drive.getDispatcher() != null) {
+            this.dispatcherDTO = new DispatcherDTO(drive.getDispatcher());
+        }
         this.note = drive.getNote();
         this.customerName = drive.getCustomerName();
     }

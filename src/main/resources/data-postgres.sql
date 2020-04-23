@@ -36,6 +36,6 @@ INSERT INTO drive (order_date, starting_address, driver_id, dispatcher_id, custo
 VALUES ('16-04-2020 13:00:00', 'Temerinska 31', 1, 1, 'Pera');
 
 --Drive by app
-INSERT INTO drive (order_date, starting_address, driver_id, customer_id)
-VALUES ('16-04-2020 13:15:00', 'Kisacka 51', 1, 1);
+INSERT INTO drive (order_date, starting_address, customer_id, note)
+VALUES ('16-04-2020 13:15:00', 'Kisacka 51', 1,'when you arrive, wait 2 min');
 

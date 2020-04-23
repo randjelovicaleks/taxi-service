@@ -3,14 +3,8 @@ package com.taxiservice.service.impl;
 import com.taxiservice.dto.DispatcherDTO;
 import com.taxiservice.dto.DriveDTO;
 import com.taxiservice.dto.DriverDTO;
-import com.taxiservice.model.Dispatcher;
-import com.taxiservice.model.Drive;
-import com.taxiservice.model.Driver;
-import com.taxiservice.model.Vehicle;
-import com.taxiservice.repository.DispatcherRepository;
-import com.taxiservice.repository.DriveRepository;
-import com.taxiservice.repository.DriverRepository;
-import com.taxiservice.repository.VehicleRepository;
+import com.taxiservice.model.*;
+import com.taxiservice.repository.*;
 import com.taxiservice.security.authority.Authority;
 import com.taxiservice.security.authority.AuthorityService;
 import com.taxiservice.service.DispatcherService;
@@ -42,6 +36,9 @@ public class DispatcherServiceImpl implements DispatcherService {
     @Lazy
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private TaxiServiceRepository taxiServiceRepository;
 
     @Override
     public Dispatcher getDispatcher(Long id) {
@@ -90,7 +87,6 @@ public class DispatcherServiceImpl implements DispatcherService {
 
         Driver driver = new Driver();
         driver.setUsername(driverDTO.getUsername());
-       // driver.setPassword(driverDTO.getPassword());
         driver.setName(driverDTO.getName());
         driver.setSurname(driverDTO.getSurname());
         driver.setAddress(driverDTO.getAddress());
@@ -99,6 +95,8 @@ public class DispatcherServiceImpl implements DispatcherService {
         driver.setSalary(driverDTO.getSalary());
         driver.setTaxiCardNumber(driverDTO.getTaxiCardNumber());
         vehicle.setDriver(driver);
+        TaxiService taxiService = taxiServiceRepository.getOne(Long.valueOf(1));
+        driver.setTaxiService(taxiService);
 
         //postavljanje passworda za drivera direktno
         driver.setPassword(passwordEncoder.encode("driver"));
@@ -107,8 +105,5 @@ public class DispatcherServiceImpl implements DispatcherService {
         driverRepository.save(driver);
         return driver;
     }
-
-    //izmena voznji
-    //dodavanje vozila
 
 }
