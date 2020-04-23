@@ -30,7 +30,7 @@ public class Vehicle {
     @ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST }, fetch = FetchType.EAGER)
     private TaxiService taxiService;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = { CascadeType.REMOVE, CascadeType.PERSIST })
     @JoinColumn(name = "driver_id", referencedColumnName = "id")
     private Driver driver;
 

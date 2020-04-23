@@ -45,7 +45,7 @@ public class DriverController {
     @PreAuthorize("hasRole('ROLE_DRIVER') or hasRole('ROLE_DISPATCHER')")
     @PutMapping(value = "/update", produces = "application/json", consumes = "application/json")
     public ResponseEntity<DriverDTO> updateDriver(@RequestBody DriverDTO driverDTO) {
-        Driver driver = driverService.updateDraver(driverDTO);
+        Driver driver = driverService.updateDriver(driverDTO);
 
         if (driver != null) {
             return new ResponseEntity<>(new DriverDTO(driver), HttpStatus.ACCEPTED);
@@ -71,5 +71,13 @@ public class DriverController {
         }
 
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @PreAuthorize("hasRole('ROLE_DRIVER')")
+    @PutMapping(value = "calculate/price/{idDriver}/{idDrive}/{kilometers}")
+    public ResponseEntity<?> calculatePriceForDriver(@PathVariable Long idDriver, @PathVariable Long idDrive,
+                                                     @PathVariable double kilometers) {
+        driverService.calculatePriceForDriver(idDriver, idDrive, kilometers);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

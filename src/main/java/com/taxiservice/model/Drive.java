@@ -31,11 +31,14 @@ public class Drive {
     @Column(name = "customerName")
     private String customerName; //za voznje koje se kreiraju putem telefonskog poziva
 
+    @Column(name = "price")
+    private double price;
+
     public Drive() {
     }
 
     public Drive(Long id, Date orderDate, String startingAddress, Driver driver, Customer customer,
-                 Dispatcher dispatcher, String note, String customerName) {
+                 Dispatcher dispatcher, String note, String customerName, double price) {
         this.id = id;
         this.orderDate = orderDate;
         this.startingAddress = startingAddress;
@@ -44,6 +47,7 @@ public class Drive {
         this.dispatcher = dispatcher;
         this.note = note;
         this.customerName = customerName;
+        this.price = price;
     }
 
     public Long getId() {
@@ -108,5 +112,13 @@ public class Drive {
 
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }

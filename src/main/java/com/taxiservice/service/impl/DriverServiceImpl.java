@@ -1,5 +1,6 @@
 package com.taxiservice.service.impl;
 
+import com.taxiservice.dto.DriveDTO;
 import com.taxiservice.dto.DriverDTO;
 import com.taxiservice.model.Drive;
 import com.taxiservice.model.Driver;
@@ -36,7 +37,7 @@ public class DriverServiceImpl implements DriverService {
     }
 
     @Override
-    public Driver updateDraver(DriverDTO driverDTO) {
+    public Driver updateDriver(DriverDTO driverDTO) {
         Driver driver = getDriver(driverDTO.getId());
 
         if (driver != null) {
@@ -68,4 +69,21 @@ public class DriverServiceImpl implements DriverService {
 
         return drive;
     }
+
+    @Override
+    public void calculatePriceForDriver(Long idDriver, Long idDrive, double kilometers) {
+        Drive drive = driveRepository.getOne(idDrive);
+        Driver driver = driverRepository.getOne(idDriver);
+        double price = 90 + (kilometers * 70);
+
+        if (driver != null && drive != null && drive.getDriver() != null && drive.getCustomer() != null) {
+            drive.setPrice(price);
+        } else if (driver != null && drive != null && drive.getDriver() != null && drive.getDispatcher() != null) {
+            drive.setPrice(price);
+        }
+
+        driveRepository.save(drive);
+    }
+
+
 }

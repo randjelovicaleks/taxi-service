@@ -77,7 +77,7 @@ public class CustomerController {
     }
 
     @PreAuthorize("hasRole('ROLE_CUSTOMER')")
-    @PutMapping(value = "/update/drive/{id}", produces = "application/json", consumes = "application/json")
+    @PutMapping(value = "/update/drive/{idCustomer}", produces = "application/json", consumes = "application/json")
     public ResponseEntity<DriveDTO> updateDriveByCustomer(@PathVariable Long idCustomer, @RequestBody DriveDTO driveDTO) {
         Drive drive = customerService.updateDriveByCustomer(idCustomer, driveDTO);
 

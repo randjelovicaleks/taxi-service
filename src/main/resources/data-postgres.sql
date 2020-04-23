@@ -30,12 +30,12 @@ INSERT INTO vehicle (model, manufacturer, first_registration, registration_numbe
 VALUES ('Polo', 'Volkswagen', '2014', 'NS478AA', '003',1);
 
 --Drive by phone
-INSERT INTO drive (order_date, starting_address, driver_id, dispatcher_id, customer_name)
-VALUES ('16-04-2020 12:00:00', 'Marka Kraljevica 56', 1, 1, 'Jova');
-INSERT INTO drive (order_date, starting_address, driver_id, dispatcher_id, customer_name)
-VALUES ('16-04-2020 13:00:00', 'Temerinska 31', 1, 1, 'Pera');
+INSERT INTO drive (order_date, starting_address, driver_id, dispatcher_id, customer_name, price)
+VALUES ('16-04-2020 12:00:00', 'Marka Kraljevica 56', 1, 1, 'Jova', 0);
+INSERT INTO drive (order_date, starting_address, driver_id, dispatcher_id, customer_name, price)
+VALUES ('16-04-2020 13:00:00', 'Temerinska 31', 1, 1, 'Pera', 0);
 
 --Drive by app
-INSERT INTO drive (order_date, starting_address, customer_id, note)
-VALUES ('16-04-2020 13:15:00', 'Kisacka 51', 1,'when you arrive, wait 2 min');
+INSERT INTO drive (order_date, starting_address, customer_id, note, price)
+VALUES ('16-04-2020 13:15:00', 'Kisacka 51', 1,'when you arrive, wait 2 min', 0);
 

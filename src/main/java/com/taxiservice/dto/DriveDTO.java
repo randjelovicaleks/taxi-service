@@ -14,12 +14,13 @@ public class DriveDTO {
     private DispatcherDTO dispatcherDTO;
     private String note;
     private String customerName;
+    private double price;
 
     public DriveDTO() {
     }
 
     public DriveDTO(Long id, Date orderDate, String startingAddress, DriverDTO driverDTO, CustomerDTO customerDTO,
-                    DispatcherDTO dispatcherDTO, String note, String customerName) {
+                    DispatcherDTO dispatcherDTO, String note, String customerName, double price) {
         this.id = id;
         this.orderDate = orderDate;
         this.startingAddress = startingAddress;
@@ -28,6 +29,7 @@ public class DriveDTO {
         this.dispatcherDTO = dispatcherDTO;
         this.note = note;
         this.customerName = customerName;
+        this.price = price;
     }
 
     public DriveDTO(Drive drive) {
@@ -45,6 +47,7 @@ public class DriveDTO {
         }
         this.note = drive.getNote();
         this.customerName = drive.getCustomerName();
+        this.price = drive.getPrice();
     }
 
     public Long getId() {
@@ -109,5 +112,13 @@ public class DriveDTO {
 
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }

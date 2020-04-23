@@ -93,6 +93,7 @@ public class CustomerServiceImpl implements CustomerService {
             drive.setOrderDate(driveDTO.getOrderDate());
             drive.setStartingAddress(driveDTO.getStartingAddress());
             drive.setNote(driveDTO.getNote());
+            drive.setPrice(0);
         }
         driveRepository.save(drive);
         return drive;

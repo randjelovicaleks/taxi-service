@@ -75,6 +75,7 @@ public class DispatcherServiceImpl implements DispatcherService {
             drive.setStartingAddress(driveDTO.getStartingAddress());
             drive.setCustomerName(driveDTO.getCustomerName());
             drive.setDriver(new Driver(driveDTO.getDriverDTO()));
+            drive.setPrice(0);
         }
         driveRepository.save(drive);
         return drive;
