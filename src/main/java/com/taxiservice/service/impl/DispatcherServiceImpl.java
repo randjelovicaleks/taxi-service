@@ -3,6 +3,7 @@ package com.taxiservice.service.impl;
 import com.taxiservice.dto.DispatcherDTO;
 import com.taxiservice.dto.DriveDTO;
 import com.taxiservice.dto.DriverDTO;
+import com.taxiservice.dto.FreeDateForDriversDTO;
 import com.taxiservice.model.*;
 import com.taxiservice.repository.*;
 import com.taxiservice.security.authority.Authority;
@@ -13,6 +14,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -64,21 +66,42 @@ public class DispatcherServiceImpl implements DispatcherService {
     }
 
     @Override
-    public Drive addDriveByPhone(Long idDispatcher, DriveDTO driveDTO) {
+    public Drive addDriveByPhone(Long idDispatcher, Long idDriver, DriveDTO driveDTO) {
         Dispatcher dispatcher = dispatcherRepository.getOne(idDispatcher);
+        Driver driver = driverRepository.getOne(idDriver);
 
         Drive drive = new Drive();
 
-        if (dispatcher != null) {
+        if (dispatcher != null && driver != null) {
             drive.setDispatcher(dispatcher);
             drive.setOrderDate(driveDTO.getOrderDate());
             drive.setStartingAddress(driveDTO.getStartingAddress());
             drive.setCustomerName(driveDTO.getCustomerName());
-            drive.setDriver(new Driver(driveDTO.getDriverDTO()));
+            drive.setDriver(driver);
             drive.setPrice(0);
         }
         driveRepository.save(drive);
         return drive;
+    }
+
+    @Override
+    public List<Driver> findFreeDriver(FreeDateForDriversDTO freeDateForDriversDTO) {
+        List<Driver> drivers = driverRepository.findAll();
+        List<Driver> freeDrivers = new ArrayList<>();
+
+        for (Driver driver : drivers) {
+            if (driver.getDrives().isEmpty()) {
+                freeDrivers.add(driver);
+            }
+            for (Drive drive : driver.getDrives()) {
+                if (!drive.getOrderDate().equals(freeDateForDriversDTO.getFreeDate())) {
+                    if (!freeDrivers.contains(driver)) {
+                        freeDrivers.add(driver);
+                    }
+                }
+            }
+        }
+        return freeDrivers;
     }
 
     @Override

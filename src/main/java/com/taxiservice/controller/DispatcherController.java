@@ -3,6 +3,7 @@ package com.taxiservice.controller;
 import com.taxiservice.dto.DispatcherDTO;
 import com.taxiservice.dto.DriveDTO;
 import com.taxiservice.dto.DriverDTO;
+import com.taxiservice.dto.FreeDateForDriversDTO;
 import com.taxiservice.model.Dispatcher;
 import com.taxiservice.model.Drive;
 import com.taxiservice.model.Driver;
@@ -12,6 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -40,14 +44,28 @@ public class DispatcherController {
     }
 
     @PreAuthorize("hasRole('ROLE_DISPATCHER')")
-    @PostMapping(value = "/create/{idDispatcher}", produces = "application/json", consumes = "application/json")
-    public ResponseEntity<DriveDTO> addDriveByPhone(@PathVariable Long idDispatcher, @RequestBody DriveDTO driveDTO) {
-        Drive drive = dispatcherService.addDriveByPhone(idDispatcher, driveDTO);
+    @PostMapping(value = "/create/{idDispatcher}/{idDriver}", produces = "application/json", consumes = "application/json")
+    public ResponseEntity<DriveDTO> addDriveByPhone(@PathVariable Long idDispatcher, @PathVariable Long idDriver,
+                                                    @RequestBody DriveDTO driveDTO) {
+        Drive drive = dispatcherService.addDriveByPhone(idDispatcher, idDriver, driveDTO);
 
         if (drive != null) {
             return new ResponseEntity<>(new DriveDTO(drive), HttpStatus.CREATED);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @PreAuthorize("hasRole('ROLE_DISPATCHER')")
+    @PostMapping(value = "/find/free/drivers", produces = "application/json", consumes = "application/json")
+    public ResponseEntity<List<DriverDTO>> findFreeDrivers(@RequestBody FreeDateForDriversDTO freeDateForDriversDTO) {
+        List<Driver> drivers = dispatcherService.findFreeDriver(freeDateForDriversDTO);
+        List<DriverDTO> driverDTOS = new ArrayList<>();
+
+        for (Driver d : drivers) {
+            driverDTOS.add(new DriverDTO(d));
+        }
+
+        return new ResponseEntity<>(driverDTOS, HttpStatus.OK);
     }
 
     @PreAuthorize("hasRole('ROLE_DISPATCHER')")
