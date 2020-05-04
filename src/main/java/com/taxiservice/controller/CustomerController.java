@@ -57,13 +57,6 @@ public class CustomerController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @PreAuthorize("hasRole('ROLE_DISPATCHER')")
-    @DeleteMapping(value = "/delete/{id}")
-    public ResponseEntity<?> deleteCustomer(@PathVariable Long id) {
-        customerService.removeCustomer(id);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
     @PreAuthorize("hasRole('ROLE_CUSTOMER')")
     @PostMapping(value = "/create/{idCustomer}")
     public ResponseEntity<DriveDTO> addDriveByApp(@PathVariable Long idCustomer, @RequestBody DriveDTO driveDTO) {

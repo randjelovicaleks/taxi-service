@@ -59,6 +59,8 @@ public class DriveServiceImpl implements DriveService {
         for (Drive d : drives) {
             if (d.getCustomer() != null && d.getDriver() != null) {
                 drivesByApp.add(d);
+            } else if (d.getCustomer() != null && d.getDriver() == null) {
+                drivesByApp.add(d);
             }
         }
         return  drivesByApp;

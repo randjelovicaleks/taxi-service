@@ -12,7 +12,6 @@ public interface CustomerService {
     Customer getCustomer(Long id);
     List<Customer> getAllCustomers();
     Customer updateCustomer(CustomerDTO customerDTO);
-    void removeCustomer(Long id);
     Drive addDriveByApp(Long idCustomer, DriveDTO driveDTO);
     Drive updateDriveByCustomer(Long idCustomer, DriveDTO driveDTO);
     Customer save(Customer customer);

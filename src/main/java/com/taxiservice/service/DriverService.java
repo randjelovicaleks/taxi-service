@@ -11,7 +11,6 @@ public interface DriverService {
     Driver getDriver(Long id);
     List<Driver> getAllDrivers();
     Driver updateDriver(DriverDTO driverDTO);
-    void removeDriver(Long id);
     Drive takeDrive(Long idDrive, Long idDriver);
     void calculatePriceForDriver(Long idDriver, Long idDrive, double kilometers);
 }

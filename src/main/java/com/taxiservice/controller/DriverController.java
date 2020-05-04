@@ -54,13 +54,6 @@ public class DriverController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @PreAuthorize("hasRole('ROLE_DISPATCHER')")
-    @DeleteMapping(value = "/delete/{id}")
-    public ResponseEntity<?> deleteDriver(@PathVariable Long id) {
-        driverService.removeDriver(id);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
     @PreAuthorize("hasRole('ROLE_DRIVER')")
     @PutMapping(value = "take/drive/{idDrive}/{idDriver}")
     public ResponseEntity<DriveDTO> takeDrive(@PathVariable Long idDrive, @PathVariable Long idDriver) {

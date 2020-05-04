@@ -19,7 +19,7 @@ public class RegistrationController {
     private CustomerServiceImpl customerService;
 
     @PostMapping(consumes = "application/json")
-    public ResponseEntity<CustomerDTO> registracija(@RequestBody CustomerDTO customerDTO) {
+    public ResponseEntity<CustomerDTO> registration(@RequestBody CustomerDTO customerDTO) {
 
         Customer existingCustomer = customerService.findByUsername(customerDTO.getUsername());
 

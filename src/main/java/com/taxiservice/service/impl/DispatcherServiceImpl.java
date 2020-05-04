@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -74,7 +75,7 @@ public class DispatcherServiceImpl implements DispatcherService {
 
         if (dispatcher != null && driver != null) {
             drive.setDispatcher(dispatcher);
-            drive.setOrderDate(driveDTO.getOrderDate());
+            drive.setOrderDate(new Date(driveDTO.getOrderDate().getTime() - 7200 * 1000));
             drive.setStartingAddress(driveDTO.getStartingAddress());
             drive.setCustomerName(driveDTO.getCustomerName());
             drive.setDriver(driver);

@@ -74,13 +74,6 @@ public class VehicleController {
     }
 
     @PreAuthorize("hasRole('ROLE_DISPATCHER')")
-    @DeleteMapping(value = "/{id}")
-    public ResponseEntity<?> deleteVehicle(@PathVariable Long id) {
-        vehicleService.removeVehicle(id);
-        return  new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @PreAuthorize("hasRole('ROLE_DISPATCHER')")
     @GetMapping(value = "/without/driver")
     public ResponseEntity<List<VehicleDTO>> getAllVehicleWithoutDriver() {
         List<Vehicle> vehicles = vehicleService.getAllVehicleWithoutDriver();

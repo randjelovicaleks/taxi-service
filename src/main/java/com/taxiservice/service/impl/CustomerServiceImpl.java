@@ -16,6 +16,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -79,18 +80,14 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void removeCustomer(Long id) {
-        customerRepository.deleteById(id);
-    }
-
-    @Override
     public Drive addDriveByApp(Long idCustomer, DriveDTO driveDTO) {
         Customer customer = customerRepository.getOne(idCustomer);
         Drive drive = new Drive();
 
         if (customer != null) {
             drive.setCustomer(customer);
-            drive.setOrderDate(driveDTO.getOrderDate());
+            //oduzimanje dva sata, jer se prilikom sacuvavanje voznje u bazi dodaju dva sata
+            drive.setOrderDate(new Date(driveDTO.getOrderDate().getTime() - 7200 * 1000));
             drive.setStartingAddress(driveDTO.getStartingAddress());
             drive.setNote(driveDTO.getNote());
             drive.setPrice(0);
@@ -106,7 +103,7 @@ public class CustomerServiceImpl implements CustomerService {
 
         if (customer != null && drive != null && drive.getDriver() == null) {
             drive.setStartingAddress(driveDTO.getStartingAddress());
-            drive.setOrderDate(driveDTO.getOrderDate());
+            drive.setOrderDate(new Date(driveDTO.getOrderDate().getTime() - 7200 * 1000));
             drive.setNote(driveDTO.getNote());
         }
         driveRepository.save(drive);

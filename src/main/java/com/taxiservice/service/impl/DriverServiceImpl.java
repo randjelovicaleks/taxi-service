@@ -53,11 +53,6 @@ public class DriverServiceImpl implements DriverService {
     }
 
     @Override
-    public void removeDriver(Long id) {
-        driverRepository.deleteById(id);
-    }
-
-    @Override
     public Drive takeDrive(Long idDrive, Long idDriver) {
         Drive drive = driveRepository.getOne(idDrive);
         Driver driver = driverRepository.getOne(idDriver);

@@ -66,11 +66,6 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public void removeVehicle(Long id) {
-        vehicleRepository.deleteById(id);
-    }
-
-    @Override
     public List<Vehicle> getAllVehicleWithoutDriver() {
         List<Vehicle> vehicles = vehicleRepository.findAll();
         List<Vehicle> vehiclesWithoutDriver = new ArrayList<>();
