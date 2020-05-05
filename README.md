@@ -1,6 +1,6 @@
 # Taxi Service
 
-This is API for small taxi service application done in Java using Spring Boot framework. To run this application you need to have PostgreSQL server installed and clone this repository. This application is made for usage from taxi company and implemented that customers can reserve drive for themselves. Drivers can take this drives, or they can be assigned by dispatcher/admin.
+This is API for small taxi service application done in Java using Spring Boot framework. To run this application you need to have PostgreSQL server installed and clone this repository. This application is made for usage from taxi company and implemented that customers can reserve drives for themselves. Drivers can take this drives, or they can be assigned by dispatcher/admin.
 
 ## Main functionalities
 
@@ -14,6 +14,6 @@ This is API for small taxi service application done in Java using Spring Boot fr
     
 * **Dispatcher/Admin**
 
-    He can reserve drive for customer by phone, see all drives, add drivers and vehicles and edit drivers and vehicles.
+    He can reserve drive for customers order by phone, see all drives, add drivers and vehicles and edit drivers and vehicles.
     
    
