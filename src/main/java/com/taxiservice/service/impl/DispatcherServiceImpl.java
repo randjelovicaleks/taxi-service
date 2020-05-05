@@ -89,6 +89,11 @@ public class DispatcherServiceImpl implements DispatcherService {
     public List<Driver> findFreeDriver(FreeDateForDriversDTO freeDateForDriversDTO) {
         List<Driver> drivers = driverRepository.findAll();
         List<Driver> freeDrivers = new ArrayList<>();
+        Date today = new Date();
+
+        if (freeDateForDriversDTO.getFreeDate().before(today)) {
+            return null;
+        }
 
         for (Driver driver : drivers) {
             if (driver.getDrives().isEmpty()) {

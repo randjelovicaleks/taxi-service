@@ -87,13 +87,19 @@ public class CustomerServiceImpl implements CustomerService {
         if (customer != null) {
             drive.setCustomer(customer);
             //oduzimanje dva sata, jer se prilikom sacuvavanje voznje u bazi dodaju dva sata
-            drive.setOrderDate(new Date(driveDTO.getOrderDate().getTime() - 7200 * 1000));
-            drive.setStartingAddress(driveDTO.getStartingAddress());
-            drive.setNote(driveDTO.getNote());
-            drive.setPrice(0);
+            Date today = new Date();
+            if (driveDTO.getOrderDate().after(today) || driveDTO.getOrderDate().equals(today)) {
+                drive.setOrderDate(new Date(driveDTO.getOrderDate().getTime() - 7200 * 1000));
+                drive.setStartingAddress(driveDTO.getStartingAddress());
+                drive.setNote(driveDTO.getNote());
+                drive.setPrice(0);
+
+                driveRepository.save(drive);
+                return drive;
+            }
+
         }
-        driveRepository.save(drive);
-        return drive;
+        return null;
     }
 
     @Override
@@ -103,11 +109,17 @@ public class CustomerServiceImpl implements CustomerService {
 
         if (customer != null && drive != null && drive.getDriver() == null) {
             drive.setStartingAddress(driveDTO.getStartingAddress());
-            drive.setOrderDate(new Date(driveDTO.getOrderDate().getTime() - 7200 * 1000));
-            drive.setNote(driveDTO.getNote());
+            Date today = new Date();
+            if (driveDTO.getOrderDate().after(today) || driveDTO.getOrderDate().equals(today)) {
+                drive.setOrderDate(new Date(driveDTO.getOrderDate().getTime() - 7200 * 1000));
+                drive.setNote(driveDTO.getNote());
+
+                driveRepository.save(drive);
+                return drive;
+            }
+
         }
-        driveRepository.save(drive);
-        return drive;
+       return null;
     }
 
 }

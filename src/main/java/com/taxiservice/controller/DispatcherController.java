@@ -61,6 +61,10 @@ public class DispatcherController {
         List<Driver> drivers = dispatcherService.findFreeDriver(freeDateForDriversDTO);
         List<DriverDTO> driverDTOS = new ArrayList<>();
 
+        if (drivers == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
         for (Driver d : drivers) {
             driverDTOS.add(new DriverDTO(d));
         }
