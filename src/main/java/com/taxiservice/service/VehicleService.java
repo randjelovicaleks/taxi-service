@@ -10,6 +10,6 @@ public interface VehicleService {
     Vehicle getVehicle(Long id);
     List<Vehicle> getAllVehicles();
     Vehicle updateVehicle(VehicleDTO vehicleDTO);
-    List<Vehicle> getAllVehicleWithoutDriver();
+    List<Vehicle> getAllVehiclesWithoutDriver();
     Vehicle addNewVehicle(VehicleDTO vehicleDTO);
 }

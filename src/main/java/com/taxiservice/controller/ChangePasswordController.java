@@ -17,7 +17,7 @@ public class ChangePasswordController {
     private CustomUserDetailsService customUserDetailsService;
 
     @PreAuthorize("hasRole('ROLE_CUSTOMER') or hasRole('ROLE_DRIVER') or hasRole('ROLE_DISPATCHER')")
-    @PostMapping(value = "/change/password", consumes = "application/json")
+    @PostMapping(value = "/password", consumes = "application/json")
     public ResponseEntity<?> changePassword(@RequestBody ChangePasswordDTO changePasswordDTO) {
         customUserDetailsService.changePassword(changePasswordDTO.getOldPassword(), changePasswordDTO.getNewPassword());
         return new ResponseEntity<>(HttpStatus.OK);

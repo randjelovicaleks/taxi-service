@@ -43,7 +43,7 @@ public class DriverController {
     }
 
     @PreAuthorize("hasRole('ROLE_DRIVER') or hasRole('ROLE_DISPATCHER')")
-    @PutMapping(value = "/update", produces = "application/json", consumes = "application/json")
+    @PutMapping(produces = "application/json", consumes = "application/json")
     public ResponseEntity<DriverDTO> updateDriver(@RequestBody DriverDTO driverDTO) {
         Driver driver = driverService.updateDriver(driverDTO);
 
@@ -55,7 +55,7 @@ public class DriverController {
     }
 
     @PreAuthorize("hasRole('ROLE_DRIVER')")
-    @PutMapping(value = "take/drive/{idDrive}/{idDriver}")
+    @PutMapping(value = "{idDriver}/drive/{idDrive}")
     public ResponseEntity<DriveDTO> takeDrive(@PathVariable Long idDrive, @PathVariable Long idDriver) {
         Drive drive = driverService.takeDrive(idDrive, idDriver);
 
@@ -67,7 +67,7 @@ public class DriverController {
     }
 
     @PreAuthorize("hasRole('ROLE_DRIVER')")
-    @PutMapping(value = "calculate/price/{idDriver}/{idDrive}/{kilometers}")
+    @PutMapping(value = "{idDriver}/drive/{idDrive}/{kilometers}")
     public ResponseEntity<?> calculatePriceForDriver(@PathVariable Long idDriver, @PathVariable Long idDrive,
                                                      @PathVariable double kilometers) {
         driverService.calculatePriceForDriver(idDriver, idDrive, kilometers);

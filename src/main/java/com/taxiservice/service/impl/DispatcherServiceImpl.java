@@ -86,7 +86,7 @@ public class DispatcherServiceImpl implements DispatcherService {
     }
 
     @Override
-    public List<Driver> findFreeDriver(FreeDateForDriversDTO freeDateForDriversDTO) {
+    public List<Driver> findFreeDrivers(FreeDateForDriversDTO freeDateForDriversDTO) {
         List<Driver> drivers = driverRepository.findAll();
         List<Driver> freeDrivers = new ArrayList<>();
         Date today = new Date();

@@ -14,8 +14,7 @@ public interface DispatcherService {
 
     Dispatcher getDispatcher(Long id);
     Dispatcher updateDispatcher(DispatcherDTO dispatcherDTO);
-
     Drive addDriveByPhone(Long idDispatcher, Long idDriver, DriveDTO driveDTO);
     Driver addNewDriver(DriverDTO driverDTO, Long idVehicle);
-    List<Driver> findFreeDriver(FreeDateForDriversDTO freeDateForDriversDTO);
+    List<Driver> findFreeDrivers(FreeDateForDriversDTO freeDateForDriversDTO);
 }

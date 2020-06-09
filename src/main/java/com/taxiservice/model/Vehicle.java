@@ -1,6 +1,5 @@
 package com.taxiservice.model;
 
-import com.taxiservice.dto.TaxiServiceDTO;
 import com.taxiservice.dto.VehicleDTO;
 
 import javax.persistence.*;

@@ -1,11 +1,9 @@
 package com.taxiservice.controller;
 
-import com.taxiservice.dto.ChangePasswordDTO;
 import com.taxiservice.dto.CustomerDTO;
 import com.taxiservice.dto.DriveDTO;
 import com.taxiservice.model.Customer;
 import com.taxiservice.model.Drive;
-import com.taxiservice.security.authority.CustomUserDetailsService;
 import com.taxiservice.service.impl.CustomerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,7 +30,7 @@ public class CustomerController {
     }
 
     @PreAuthorize("hasRole('ROLE_DISPATCHER')")
-    @GetMapping(value = "/all")
+    @GetMapping
     public ResponseEntity<List<CustomerDTO>> getAllCustomers() {
         List<Customer> customers = customerService.getAllCustomers();
         List<CustomerDTO> customerDTOS = new ArrayList<>();
@@ -46,7 +44,7 @@ public class CustomerController {
     }
 
     @PreAuthorize("hasRole('ROLE_CUSTOMER')")
-    @PutMapping(value = "/update", produces = "application/json", consumes = "application/json")
+    @PutMapping(produces = "application/json", consumes = "application/json")
     public ResponseEntity<CustomerDTO> updateCustomer(@RequestBody CustomerDTO customerDTO){
         Customer customer = customerService.updateCustomer(customerDTO);
 
@@ -58,7 +56,7 @@ public class CustomerController {
     }
 
     @PreAuthorize("hasRole('ROLE_CUSTOMER')")
-    @PostMapping(value = "/create/{idCustomer}")
+    @PostMapping(value = "/{idCustomer}/drive")
     public ResponseEntity<DriveDTO> addDriveByApp(@PathVariable Long idCustomer, @RequestBody DriveDTO driveDTO) {
         Drive drive = customerService.addDriveByApp(idCustomer, driveDTO);
 
@@ -70,7 +68,7 @@ public class CustomerController {
     }
 
     @PreAuthorize("hasRole('ROLE_CUSTOMER')")
-    @PutMapping(value = "/update/drive/{idCustomer}", produces = "application/json", consumes = "application/json")
+    @PutMapping(value = "/{idCustomer}/drive", produces = "application/json", consumes = "application/json")
     public ResponseEntity<DriveDTO> updateDriveByCustomer(@PathVariable Long idCustomer, @RequestBody DriveDTO driveDTO) {
         Drive drive = customerService.updateDriveByCustomer(idCustomer, driveDTO);
 

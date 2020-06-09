@@ -50,7 +50,7 @@ public class VehicleController {
     }
 
     @PreAuthorize("hasRole('ROLE_DISPATCHER')")
-    @PostMapping(value = "/create", produces = "application/json", consumes = "application/json")
+    @PostMapping(produces = "application/json", consumes = "application/json")
     public ResponseEntity<VehicleDTO> addNewVehicle(@RequestBody VehicleDTO vehicleDTO) {
         Vehicle vehicle = vehicleService.addNewVehicle(vehicleDTO);
 
@@ -62,7 +62,7 @@ public class VehicleController {
     }
 
     @PreAuthorize("hasRole('ROLE_DISPATCHER')")
-    @PutMapping(value = "/update", produces = "application/json", consumes = "application/json")
+    @PutMapping(produces = "application/json", consumes = "application/json")
     public ResponseEntity<VehicleDTO> updateVehicle(@RequestBody VehicleDTO vehicleDTO) {
         Vehicle vehicle = vehicleService.updateVehicle(vehicleDTO);
 
@@ -76,7 +76,7 @@ public class VehicleController {
     @PreAuthorize("hasRole('ROLE_DISPATCHER')")
     @GetMapping(value = "/without/driver")
     public ResponseEntity<List<VehicleDTO>> getAllVehicleWithoutDriver() {
-        List<Vehicle> vehicles = vehicleService.getAllVehicleWithoutDriver();
+        List<Vehicle> vehicles = vehicleService.getAllVehiclesWithoutDriver();
         List<VehicleDTO> vehicleDTOS = new ArrayList<>();
 
         for (Vehicle v : vehicles) {

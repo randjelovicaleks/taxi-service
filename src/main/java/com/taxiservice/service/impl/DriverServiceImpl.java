@@ -45,6 +45,7 @@ public class DriverServiceImpl implements DriverService {
             driver.setSurname(driverDTO.getSurname());
             driver.setAddress(driverDTO.getAddress());
             driver.setPhoneNumber(driverDTO.getPhoneNumber());
+            driver.setSalary(driverDTO.getSalary());
         }
         List<Authority> auth = authService.findByRole("ROLE_DRIVER");
         driver.setAuthorities(auth);

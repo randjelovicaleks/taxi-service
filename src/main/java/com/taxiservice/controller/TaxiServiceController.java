@@ -29,7 +29,7 @@ public class TaxiServiceController {
     }
 
     @PreAuthorize("hasRole('ROLE_DISPATCHER')")
-    @PutMapping(value = "/update", produces = "application/json", consumes = "application/json")
+    @PutMapping(produces = "application/json", consumes = "application/json")
     public ResponseEntity<TaxiServiceDTO> updateTaxiService(@RequestBody TaxiServiceDTO taxiServiceDTO) {
         TaxiService taxiService = taxiServiceService.updateTaxiService(taxiServiceDTO);
 

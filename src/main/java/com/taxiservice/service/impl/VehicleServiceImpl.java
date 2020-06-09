@@ -33,7 +33,7 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public Vehicle addNewVehicle(VehicleDTO vehicleDTO) {
-        Vehicle vehicle = new Vehicle(vehicleDTO);
+        Vehicle vehicle = new Vehicle();
 
         if (vehicle != null) {
             vehicle.setId(vehicleDTO.getId());
@@ -66,7 +66,7 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public List<Vehicle> getAllVehicleWithoutDriver() {
+    public List<Vehicle> getAllVehiclesWithoutDriver() {
         List<Vehicle> vehicles = vehicleRepository.findAll();
         List<Vehicle> vehiclesWithoutDriver = new ArrayList<>();
 

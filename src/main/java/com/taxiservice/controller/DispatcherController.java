@@ -33,7 +33,7 @@ public class DispatcherController {
     }
 
     @PreAuthorize("hasRole('ROLE_DISPATCHER')")
-    @PutMapping(value = "/update", produces = "application/json", consumes = "application/json")
+    @PutMapping(produces = "application/json", consumes = "application/json")
     public ResponseEntity<DispatcherDTO> updateDispatcher(@RequestBody DispatcherDTO dispatcherDTO) {
         Dispatcher dispatcher = dispatcherService.updateDispatcher(dispatcherDTO);
 
@@ -44,7 +44,7 @@ public class DispatcherController {
     }
 
     @PreAuthorize("hasRole('ROLE_DISPATCHER')")
-    @PostMapping(value = "/create/{idDispatcher}/{idDriver}", produces = "application/json", consumes = "application/json")
+    @PostMapping(value = "/{idDispatcher}/driver/{idDriver}", produces = "application/json", consumes = "application/json")
     public ResponseEntity<DriveDTO> addDriveByPhone(@PathVariable Long idDispatcher, @PathVariable Long idDriver,
                                                     @RequestBody DriveDTO driveDTO) {
         Drive drive = dispatcherService.addDriveByPhone(idDispatcher, idDriver, driveDTO);
@@ -56,9 +56,9 @@ public class DispatcherController {
     }
 
     @PreAuthorize("hasRole('ROLE_DISPATCHER')")
-    @PostMapping(value = "/find/free/drivers", produces = "application/json", consumes = "application/json")
+    @PostMapping(value = "/free/drivers", produces = "application/json", consumes = "application/json")
     public ResponseEntity<List<DriverDTO>> findFreeDrivers(@RequestBody FreeDateForDriversDTO freeDateForDriversDTO) {
-        List<Driver> drivers = dispatcherService.findFreeDriver(freeDateForDriversDTO);
+        List<Driver> drivers = dispatcherService.findFreeDrivers(freeDateForDriversDTO);
         List<DriverDTO> driverDTOS = new ArrayList<>();
 
         if (drivers == null) {
@@ -73,7 +73,7 @@ public class DispatcherController {
     }
 
     @PreAuthorize("hasRole('ROLE_DISPATCHER')")
-    @PostMapping(value = "/create/driver/{idVehicle}", produces = "application/json", consumes = "application/json")
+    @PostMapping(value = "/driver/{idVehicle}", produces = "application/json", consumes = "application/json")
     public ResponseEntity<DriverDTO> addNewDriver(@RequestBody DriverDTO driverDTO, @PathVariable Long idVehicle) {
         Driver driver = dispatcherService.addNewDriver(driverDTO, idVehicle);
 
